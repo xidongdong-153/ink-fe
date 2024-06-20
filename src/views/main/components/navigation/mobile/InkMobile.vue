@@ -5,29 +5,29 @@
 			class="relative flex overflow-x-auto p-1 text-xs text-zinc-600 overflow-hidden"
 		>
 			<li
+				ref="sliderRef"
+				:class="{
+					'px-1.5 py-0.5': store.getters.categories.length > 0,
+				}"
 				:style="sliderStyle"
 				class="absolute h-[24px] shrink-0 z-10 bg-zinc-900 rounded-lg duration-200"
-				:class="{
-					'px-1.5 py-0.5': categories.length > 0,
-				}"
-				ref="sliderRef"
 			></li>
 			<!-- 菜单 -->
 			<li
 				class="fixed top-0 right-[-1px] h-4 p-1 flex items-center bg-white shadow-l-white z-20"
 				@click="isOpenPopup = !isOpenPopup"
 			>
-				<i-svg-icon name="hamburger" class="w-1.5 h-1.5" />
+				<i-svg-icon class="w-1.5 h-1.5" name="hamburger" />
 			</li>
 
 			<li
-				v-for="(category, index) of categories"
+				v-for="(category, index) of store.getters.categories"
 				:key="category.id"
-				class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-3"
+				:ref="setItemRef"
 				:class="{
 					'text-zinc-100': currentCategoryIndex === index,
 				}"
-				:ref="setItemRef"
+				class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-3"
 				@click="onItemClick(index)"
 			>
 				{{ category.name }}
@@ -35,7 +35,10 @@
 		</ul>
 
 		<i-popup v-model="isOpenPopup">
-			<InkMenu :categories @on-selected="onItemClick" />
+			<InkMenu
+				:categories="store.getters.categories"
+				@on-selected="onItemClick"
+			/>
 		</i-popup>
 	</div>
 </template>
@@ -44,15 +47,11 @@
 import { useScroll } from '@vueuse/core';
 import { nextTick, onBeforeUpdate, ref, watch } from 'vue';
 
+import { useStore } from 'vuex';
+
 import InkMenu from '@/views/main/components/menu/InkMenu.vue';
 
-const props = defineProps({
-	categories: {
-		type: Array,
-		required: true,
-		default: () => [],
-	},
-});
+const store = useStore();
 
 const isOpenPopup = ref(false);
 
@@ -95,15 +94,19 @@ watch(currentCategoryIndex, (val) => {
 		transform: `translateX(${ulScrollLeft.value + left - paddingLeft}px)`,
 		width: `${width}px`,
 	};
+
+	if (isOpenPopup.value) {
+		isOpenPopup.value = false;
+		ulRef.value.scrollLeft = left + ulRef.value.scrollLeft - paddingLeft;
+	}
 });
 
 const onItemClick = (index) => {
 	currentCategoryIndex.value = index;
-	isOpenPopup.value = false;
 };
 
 watch(
-	() => props.categories,
+	() => store.getters.categories,
 	() => {
 		// 当有itemRefs执行，只需要执行一次
 		nextTick(() => {

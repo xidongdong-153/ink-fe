@@ -1,26 +1,17 @@
 <template>
-	<InkMobile v-if="isMobileTerminal" :categories />
+	<InkMobile v-if="isMobileTerminal" />
 	<InkPC v-else />
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 
-import { getCategory } from '@/api/category';
-import { ALL_CATEGORY_ITEM } from '@/constants';
 import { isMobileTerminal } from '@/utils/flexible';
 
-import InkMobile from './mobile/InkMobile.vue';
-import InkPC from './pc/InkPC.vue';
+import InkMobile from '@/views/main/components/navigation/mobile/InkMobile.vue';
+import InkPC from '@/views/main/components/navigation/pc/InkPC.vue';
 
-const categories = ref([]);
+const store = useStore();
 
-const getCategoryData = async () => {
-	const { categorys } = await getCategory();
-	categories.value = categories.value.concat(...[ALL_CATEGORY_ITEM], categorys);
-};
-
-onMounted(() => {
-	getCategoryData();
-});
+store.dispatch('fetchCategories');
 </script>
