@@ -2,7 +2,7 @@
 	<i-popover class="flex items-center" placement="bottom-left">
 		<template #reference>
 			<div
-				class="guide-my relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100"
+				class="guide-my relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
 			>
 				<!-- 头像 -->
 				<img
@@ -12,14 +12,14 @@
 				<!-- 下箭头 -->
 				<i-svg-icon
 					class="h-1.5 w-1.5 ml-0.5"
-					fillClass="fill-zinc-900 "
+					fillClass="fill-zinc-900 dark:fill-zinc-300"
 					name="down-arrow"
-				></i-svg-icon>
+				/>
 				<!-- vip 标记 -->
 				<i-svg-icon
 					class="w-1.5 h-1.5 absolute right-[16px] bottom-0"
 					name="vip"
-				></i-svg-icon>
+				/>
 			</div>
 		</template>
 
@@ -32,9 +32,11 @@
 				<i-svg-icon
 					:name="item.icon"
 					class="w-1.5 h-1.5 mr-1"
-					fillClass="fill-zinc-900 "
-				></i-svg-icon>
-				<span class="text-zinc-800 text-sm">{{ item.title }}</span>
+					fillClass="fill-zinc-900 dark:fill-zinc-300"
+				/>
+				<span class="text-zinc-800 text-sm dark:text-zinc-300">{{
+					item.title
+				}}</span>
 			</div>
 		</div>
 	</i-popover>

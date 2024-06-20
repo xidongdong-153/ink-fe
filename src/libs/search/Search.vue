@@ -6,14 +6,14 @@
 		<!-- 搜索图标 -->
 		<i-svg-icon
 			class="w-1.5 h-1.5 absolute translate-y-[-50%] top-[50%] left-2"
-			color="#707070"
+			fillClass="fill-zinc-900 dark:fill-zinc-300"
 			name="search"
 		/>
 
 		<!-- 输入框 -->
 		<input
 			v-model="inputValue"
-			class="block w-full h-[44px] pl-4 text-sm outline-0 bg-zinc-100 caret-zinc-400 rounded-xl text-zinc-900 tracking-wide font-semibold border border-zinc-100 duration-500 group-hover:bg-white group-hover:border-zinc-200 focus:border-red-300"
+			class="block w-full h-[44px] pl-4 text-sm outline-0 bg-zinc-100 dark:bg-zinc-800 caret-zinc-400 rounded-xl text-zinc-900 dark:text-zinc-200 tracking-wide font-semibold border border-zinc-100 dark:border-zinc-700 duration-500 group-hover:bg-white dark:group-hover:bg-zinc-900 group-hover:border-zinc-200 dark:group-hover:border-zinc-700 focus:border-red-300"
 			placeholder="搜索"
 			type="text"
 			@blur="onBlur"
@@ -26,7 +26,7 @@
 			class="h-1.5 w-1.5 absolute translate-y-[-50%] top-[50%] right-9 duration-500 cursor-pointer"
 			name="input-delete"
 			@click="inputValue = ''"
-		></i-svg-icon>
+		/>
 
 		<!-- 分割线 -->
 		<div
@@ -36,18 +36,17 @@
 		<i-button
 			class="absolute translate-y-[-50%] top-[50%] right-1 rounded-full"
 			icon="search"
-			iconColor="#ffffff"
+			iconClass="fill-zinc-100"
 			@click="onSearch"
 			@keyup.enter="onSearch"
-		>
-		</i-button>
+		/>
 
 		<!-- 下拉区 -->
 		<transition name="slide">
 			<div
 				v-if="$slots.dropdown"
 				v-show="isFocused"
-				class="max-h-[368px] w-full text-base overflow-auto bg-white absolute z-20 left-0 top-[56px] p-2 rounded border border-zinc-200 duration-200 hover:shadow-3xl"
+				class="max-h-[368px] w-full text-base overflow-auto bg-white dark:bg-zinc-800 absolute z-20 left-0 top-[56px] p-2 rounded border border-zinc-200 dark:border-zinc-600 duration-200 hover:shadow-3xl"
 			>
 				<slot name="dropdown"></slot>
 			</div>
@@ -56,9 +55,15 @@
 </template>
 
 <script setup>
-/* eslint-disable no-use-before-define */
 import { onClickOutside } from '@vueuse/core';
 import { ref, watch } from 'vue';
+
+import {
+	EMIT_BLUR,
+	EMIT_CLEAR,
+	EMIT_FOCUS,
+	EMIT_SEARCH,
+} from '@/libs/search/option';
 
 const [inputValue] = defineModel();
 
@@ -91,17 +96,6 @@ onClickOutside(searchRef, () => {
 	isFocused.value = false;
 	return null;
 });
-</script>
-
-<script>
-// 触发搜索（点击或回车）事件
-const EMIT_SEARCH = 'search';
-// 删除所有文本事件
-const EMIT_CLEAR = 'clear';
-// 获取焦点事件
-const EMIT_FOCUS = 'focus';
-// 失去焦点事件
-const EMIT_BLUR = 'blur';
 </script>
 
 <style lang="scss" scoped>

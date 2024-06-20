@@ -1,5 +1,5 @@
 <template>
-	<div class="sticky top-0 left-0 z-10 bg-white">
+	<div class="sticky top-0 left-0 z-10 bg-white dark:bg-zinc-900">
 		<ul
 			ref="ulRef"
 			class="relative flex overflow-x-auto p-1 text-xs text-zinc-600 overflow-hidden"
@@ -10,11 +10,11 @@
 					'px-1.5 py-0.5': store.getters.categories.length > 0,
 				}"
 				:style="sliderStyle"
-				class="absolute h-[24px] shrink-0 z-10 bg-zinc-900 rounded-lg duration-200"
+				class="absolute h-[24px] shrink-0 z-10 bg-zinc-900 dark:bg-zinc-800 rounded-lg duration-200"
 			></li>
 			<!-- 菜单 -->
 			<li
-				class="fixed top-0 right-[-1px] h-4 p-1 flex items-center bg-white shadow-l-white z-20"
+				class="fixed top-0 right-[-1px] h-4 p-1 flex items-center bg-white dark:bg-zinc-900 shadow-l-white dark:shadow-l-zinc z-20"
 				@click="isOpenPopup = !isOpenPopup"
 			>
 				<i-svg-icon class="w-1.5 h-1.5" name="hamburger" />

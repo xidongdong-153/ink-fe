@@ -13,7 +13,7 @@
 			v-if="loading"
 			class="w-2 h-2 animate-spin mr-1"
 			name="loading"
-		></i-svg-icon>
+		/>
 		<!-- icon 按钮 -->
 		<i-svg-icon
 			v-if="icon"
@@ -22,7 +22,7 @@
 			:fillClass="iconClass"
 			:name="icon"
 			class="m-auto"
-		></i-svg-icon>
+		/>
 		<!-- 文字按钮 -->
 		<slot v-else></slot>
 	</button>
@@ -30,6 +30,8 @@
 
 <script setup>
 import { computed } from 'vue';
+
+import { EMIT_CLICK, sizeEnum, typeEnum } from '@/libs/button/option';
 
 const props = defineProps({
 	// icon 图标名字
@@ -109,35 +111,6 @@ const onClick = () => {
 
 	emits(EMIT_CLICK);
 };
-</script>
-
-<script>
-const typeEnum = {
-	primary: 'text-white  bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-800 ',
-	main: 'text-white  bg-main hover:bg-hover-main active:bg-main ',
-	info: 'text-zinc-800 bg-zinc-200 hover:bg-zinc-300 active:bg-zinc-200 ',
-};
-
-const sizeEnum = {
-	default: {
-		button: 'w-8 h-4 text-base',
-		icon: '',
-	},
-	'icon-default': {
-		button: 'w-4 h-4',
-		icon: 'w-1.5 h-1.5',
-	},
-	small: {
-		button: 'w-7 h-3 text-base',
-		icon: '',
-	},
-	'icon-small': {
-		button: 'w-3 h-3',
-		icon: 'w-1.5 h-1.5',
-	},
-};
-
-const EMIT_CLICK = 'click';
 </script>
 
 <style lang="scss" scoped></style>

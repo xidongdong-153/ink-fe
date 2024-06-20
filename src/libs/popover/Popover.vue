@@ -10,7 +10,7 @@
 				v-if="isVisible"
 				ref="popoverRef"
 				:style="contentStyle"
-				class="absolute p-1 z-20 bg-white border rounded-md"
+				class="absolute p-1 z-20 bg-white dark:bg-zinc-900 border dark:border-zinc-700 rounded-md"
 			>
 				<!-- 匿名插槽 -->
 				<slot></slot>
@@ -23,6 +23,14 @@
 /* eslint-disable no-use-before-define */
 import { useElementSize } from '@vueuse/core';
 import { nextTick, ref, watch } from 'vue';
+
+import {
+	PROP_BOTTOM_LEFT,
+	PROP_BOTTOM_RIGHT,
+	PROP_TOP_LEFT,
+	PROP_TOP_RIGHT,
+	placementEnum,
+} from '@/libs/popover/option';
 
 const props = defineProps({
 	// 控制气泡弹出位置，并给出开发者错误的提示
@@ -114,21 +122,6 @@ const onMouseleave = () => {
 		timeout = null;
 	}, 300);
 };
-</script>
-
-<script>
-const PROP_TOP_LEFT = 'top-left';
-const PROP_TOP_RIGHT = 'top-right';
-const PROP_BOTTOM_LEFT = 'bottom-left';
-const PROP_BOTTOM_RIGHT = 'bottom-right';
-
-// 定义指定位置的 Enum
-const placementEnum = [
-	PROP_TOP_LEFT,
-	PROP_TOP_RIGHT,
-	PROP_BOTTOM_LEFT,
-	PROP_BOTTOM_RIGHT,
-];
 </script>
 
 <style lang="scss" scoped>

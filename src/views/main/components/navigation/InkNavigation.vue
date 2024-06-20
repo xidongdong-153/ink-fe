@@ -13,5 +13,5 @@ import InkPC from '@/views/main/components/navigation/pc/InkPC.vue';
 
 const store = useStore();
 
-store.dispatch('fetchCategories');
+store.dispatch('category/fetchCategories');
 </script>

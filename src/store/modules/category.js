@@ -2,7 +2,7 @@ import { getCategory } from '@/api/category';
 import { ALL_CATEGORY_ITEM, CATEGORY_NORMAL_DATA } from '@/constants/index';
 
 export const categoryStore = {
-	namespace: true,
+	namespaced: true,
 	state: () => {
 		return {
 			categories: [ALL_CATEGORY_ITEM, ...CATEGORY_NORMAL_DATA],

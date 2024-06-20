@@ -5,6 +5,7 @@ import { libsInstall } from '@/libs';
 import { router } from '@/router';
 import { store } from '@/store';
 import { reloadFontSize } from '@/utils/flexible';
+import { useTheme } from '@/utils/theme';
 
 import './styles/index.scss';
 
@@ -21,7 +22,7 @@ function bootstrap() {
 	app.use(store);
 
 	app.use(libsInstall);
-
+	useTheme();
 	app.mount('#app');
 }
 

@@ -13,7 +13,7 @@
 			<div
 				v-if="model"
 				v-bind="$attrs"
-				class="w-2/3 h-full bg-white z-50 fixed top-0 left-0 overflow-hidden"
+				class="w-2/3 h-full bg-white dark:bg-zinc-800 z-50 fixed top-0 left-0 overflow-hidden"
 			>
 				<slot></slot>
 			</div>
