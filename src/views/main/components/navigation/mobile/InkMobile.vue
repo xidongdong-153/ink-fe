@@ -116,5 +116,8 @@ watch(
 			}
 		});
 	},
+	{
+		immediate: true,
+	},
 );
 </script>
